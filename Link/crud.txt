@@ -1,0 +1,407 @@
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
+import "../../../src/index.css";
+import "../create/create.css";
+import Readdata from "C:/Users/ManikantaKatta/Desktop/crudoperation/src/components/Read/read.js";
+
+const Create = () => {
+  const [firstname, setfirstname] = useState("");
+  const [lastname, setlastname] = useState("");
+  const [collegename, setcollegename] = useState("");
+  const [department, setdepartment] = useState("");
+
+  async function FormSubmit(e) {
+    e.preventDefault();
+    let std = new Object();
+
+    try {
+      if (firstname == null || firstname === "") {
+        alert("enter your firstname");
+      }
+      if (lastname == null || lastname === "") {
+        alert("enter your lastname");
+      }
+      if (collegename == null || collegename === "") {
+        alert("enter your collegename");
+      }
+      if (department == null || department === "") {
+        alert("enter your department");
+      } else {
+        std.firstname = firstname;
+        std.lastname = lastname;
+        std.collegename = collegename;
+        std.department = department;
+
+        await axios
+          .post(
+            "https://crudcrud.com/api/7c19fdc5e5544e2b8f6853667955e55d/users",
+            std
+          )
+          .then(() => {
+            alert("are you sure want to add user data");
+          });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+    window.location.reload(false);
+  }
+
+  return (
+    <div className="container">
+      <div className="a">
+        <div className="w-75 mx-auto shadow p-5">
+          <form>
+            <div id="ht">
+              <h2>Student Information</h2>
+              <br />
+            </div>
+
+            <div className="form-inline row">
+              <label className="col-sm-2 col-form-label">First Name :</label>
+              <input
+                id="firstname"
+                className="form-control form-control-lg"
+                onChange={(e) => setfirstname(e.target.value)}
+                placeholder="firstname"
+              />
+            </div>
+
+            <div className="form-inline row">
+              <label className="col-sm-2 col-form-label">Last Name :</label>
+              <input
+                id="lastname"
+                className="form-control form-control-lg"
+                onChange={(e) => setlastname(e.target.value)}
+                placeholder="lastname"
+              />
+            </div>
+
+            <div className="form-inline row">
+              <label className="col-sm-2 col-form-label">College Name :</label>
+              <input
+                id="collegename"
+                className="form-control form-control-lg"
+                onChange={(e) => setcollegename(e.target.value)}
+                placeholder="collegename"
+              />
+            </div>
+
+            <div className="form-inline row">
+              <label className="col-sm-2 col-form-label">Department :</label>
+              <input
+                id="department"
+                className="form-control form-control-lg"
+                onChange={(e) => setdepartment(e.target.value)}
+                placeholder="department"
+              />
+            </div>
+
+            <button
+              type="submit"
+              id="Btn"
+              className="bg-warning "
+              onClick={FormSubmit}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default Create;
+
+
+import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "C:/Users/ManikantaKatta/Desktop/crudoperation/src/components/Read/read.css";
+
+const Readdata = () => {
+  const [data, setdata] = useState([]);
+  const fetchurl =
+    "https://crudcrud.com/api/7c19fdc5e5544e2b8f6853667955e55d/users";
+
+  const getData = () => fetch(fetchurl).then((res) => res.json());
+
+  useEffect(() => {
+    getData()
+      .then((data) => setdata(data))
+      .then(() => {});
+  }, []);
+
+  const onDelete = (id) => {
+
+    axios
+      .delete(
+        `https://crudcrud.com/api/7c19fdc5e5544e2b8f6853667955e55d/users/${id}`
+      )
+      .then(() => {
+        getData();
+      });
+    window.location.reload(false);
+ 
+  };
+  return (
+    <div className="card">
+      <table className="table">
+        <thead>
+          <tr id="tr">
+            <th id="th">Firstname &nbsp;</th>
+            <th id="th">Lastname &nbsp;</th>
+            <th id="th">Collegename &nbsp;</th>
+            <th id="th">Department &nbsp;</th>
+
+            <th id="th">Operation &nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data?.map((item, i) => (
+            <tr className="trow" id="t-row"key={i}>
+              <td id="td">{item.firstname}</td>
+              <td id="td">{item.lastname}</td>
+              <td id="td">{item.collegename}</td>
+              <td id="td">{item.department}</td>
+
+              <td>
+                <button
+                  id="delete"
+                  className="card-2 bg-warning"
+                  onClick={() => onDelete(item._id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+export default Readdata;
+
+
+
+import "./App.css";
+import Create from "./components/create/create";
+import Readdata from "./components/Read/read";
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+function App(props) {
+  return (
+    <div className="App">
+      <Create />
+      <Readdata />
+    </div>
+  );
+}
+
+export default App;
+
+
+
+describe("adding user spec", () => {
+  beforeEach("first", () => {
+    cy.visit("http://localhost:3000/");
+  });
+  it("passes", () => {
+    cy.get("#firstname").type("manikanta");
+    cy.get("#lastname").type("katta");
+    cy.get("#collegename").type("svkp");
+    cy.get("#department").type("mechanical");
+    cy.get("#Btn").click();
+    cy.on("window:alert", (txt) => {
+      expect(txt).to.contains("are you sure want to add user data");
+    });
+    cy.get(".trow").last().should('contains.text','svkp')
+    
+  });
+
+  it("empty firstname field", () => {
+    cy.get("#Btn").click();
+    cy.on("window:alert", (txt) => {
+      expect(txt).to.contains("enter your firstname");
+    });
+  });
+  it("empty lastname field", () => {
+    cy.get("#firstname").type("mani");
+    cy.get("#Btn").click();
+    cy.on("window:alert", (txt) => {
+      expect(txt).to.contains("enter your lastname");
+    });
+  });
+  it("empty collegename field", () => {
+    cy.get("#firstname").type("manikanta");
+    cy.get("#lastname").type("katta");
+    cy.get("#Btn").click();
+    cy.on("window:alert", (txt) => {
+      expect(txt).to.contains("enter your collegename");
+    });
+  });
+  it("empty department field", () => {
+    cy.get("#firstname").type("manikanta");
+    cy.get("#lastname").type("katta");
+    cy.get("#collegename").type("svkp");
+    cy.get("#Btn").click();
+    cy.on("window:alert", (txt) => {
+      expect(txt).to.contains("enter your department");
+    });
+  });
+  it("delete alert", () => {
+    
+     cy.get('.trow').last().contains('svkp')
+     cy.get('.trow').last().get('#delete').click()
+     cy.get('.trow').last().get('#delete').click()
+     cy.on("window:alert", (txt) => {
+      expect(txt).to.contains("Are you sure want  to delete userdata");
+     });
+     cy.get(".trow").last().should('contains.text','svkp')
+ 
+  });
+  
+
+});
+
+
+
+import { Redirect, Route } from 'react-router-dom';
+
+import {
+
+  IonApp,
+
+  IonIcon,
+
+  IonLabel,
+
+  IonRouterOutlet,
+
+  IonTabBar,
+
+  IonTabButton,
+
+  IonTabs,
+
+  setupIonicReact
+
+} from '@ionic/react';
+
+import { IonReactRouter } from '@ionic/react-router';
+
+import { ellipse, square, triangle } from 'ionicons/icons';
+
+import Landing from './pages/Landing';
+
+import Tab2 from './pages/Home';
+
+import Tab3 from './pages/Tab3';
+
+
+
+/* Core CSS required for Ionic components to work properly */
+
+import '@ionic/react/css/core.css';
+
+
+
+/* Basic CSS for apps built with Ionic */
+
+import '@ionic/react/css/normalize.css';
+
+import '@ionic/react/css/structure.css';
+
+import '@ionic/react/css/typography.css';
+
+
+
+/* Optional CSS utils that can be commented out */
+
+import '@ionic/react/css/padding.css';
+
+import '@ionic/react/css/float-elements.css';
+
+import '@ionic/react/css/text-alignment.css';
+
+import '@ionic/react/css/text-transformation.css';
+
+import '@ionic/react/css/flex-utils.css';
+
+import '@ionic/react/css/display.css';
+
+
+
+/* Theme variables */
+
+import './theme/variables.css';
+
+import Home from './pages/Home';
+
+
+
+setupIonicReact();
+
+
+
+const App: React.FC = () => (
+
+  <IonApp>
+
+    <IonReactRouter>
+
+     
+
+        <IonRouterOutlet>
+
+          <Route exact path="/landing">
+
+            <Landing />
+
+          </Route>
+
+          <Route exact path="/home">
+
+            <Home />
+
+          </Route>
+
+          <Route path="/tab3">
+
+            <Tab3 />
+
+          </Route>
+
+          <Route exact path="/">
+
+            <Redirect to="/landing" />
+
+          </Route>
+
+        </IonRouterOutlet>
+
+
+
+     
+
+    </IonReactRouter>
+
+  </IonApp>
+
+);
+
+
+
+export default App;
+
+
+
+
+
+
+
+
+
+

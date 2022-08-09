@@ -1,0 +1,5 @@
+React-js:(A Front-end Development Library).
+      React is developed by facebook and React is known as Reactjs which is a javascript library to build single-page web applications.
+      It is a reusable components designed to create skeleton of the apps,whwre as React native is designed to build a native mobile apps with reusable components.
+      It is an open source js library for buildinh web applications.
+      Both React and React native are widely used for mobile and web applications.

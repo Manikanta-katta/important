@@ -1,0 +1,335 @@
+import {
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonContent,
+    IonImg,
+    IonInput,
+    IonLabel,
+    IonPage,
+    
+    useIonRouter
+  } from "@ionic/react";
+  import { Link } from "react-router-dom";
+  import "./Loginpage.css";
+   import img1 from "../assets/images/Google.png";
+      import img2 from "../assets/images/Facebook.png";
+   import img3 from "../assets/images/Twitter.png";
+  import img4 from "../assets/images/eatmore logo.png";
+  import { firebaseApp } from "./firebase";
+   import { useState,useEffect } from "react";
+   import { signInWithGoogle, sigInWithFacebook } from './firebase'
+
+  const Login =() =>{
+
+    const [user, setUser] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmpassword, setconfirmPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [PassswordError, setPasswordError] = useState('');
+   
+    let router = useIonRouter();
+
+  const clearInputs = () => {
+    setEmail('');
+    setPassword('');
+    setconfirmPassword('');
+  }
+  const clearErrors = () => {
+    setEmailError('');
+    setPasswordError('');
+  }
+  const authlistener = () => {
+    firebaseApp.auth().onAuthStateChanged(user => {
+      if (user) {
+        clearInputs();
+        setUser(user);
+      }
+      else {
+        setUser("");
+      }
+    });
+  };
+  useEffect(() => {
+    authlistener();
+  }, []);
+
+
+    const handlelogin = () => {
+      clearErrors();
+  
+      firebaseApp.auth().signInWithEmailAndPassword(email, password).then(()=>{router.push("/dashboard")})
+   
+      
+        .catch((err) => {
+  
+          switch (err.code) {
+            case "auth/invalid-email":
+            case "auth/user-disabled":
+            case "auth/user-not-found":
+              setEmailError(err.message);
+              break;
+            case "auth/wrong-password":
+              setPasswordError(err.message);
+              break;
+          }
+        });
+   
+    };
+    return(
+        <IonPage>
+            <IonContent>
+            <IonImg className="eclipse" src={img4} alt=" "></IonImg>
+            <IonCard className="container">
+            <IonCardHeader><IonLabel className="logintxt">Login</IonLabel></IonCardHeader>
+            <br></br>
+            <IonInput class="input"  value={email} placeholder="enter email" onIonChange={(e) => setEmail(e.detail.value)} ></IonInput><br></br>
+            <IonLabel className="errorMsg"> {emailError}</IonLabel>
+            <IonInput class="input" type="password" placeholder="Password" onIonChange={(e) => setPassword(e.detail.value)}></IonInput><br></br>
+            <IonLabel className="errorMsg"> {PassswordError}</IonLabel>
+           
+            
+            <IonButton onClick={handlelogin} className='loginbtn' expand="full" color='danger' shape="round" >Login </IonButton>
+            <br></br>
+
+            <IonLabel>Don't hava any account? <Link to='/signuppage'>Sign up</Link></IonLabel>
+            <div className="image">
+              <Link onClick={signInWithGoogle} ><IonImg className="image1" src={img1} alt=" "></IonImg></Link>
+              <Link > <IonImg className="image2" src={img2} alt=" "></IonImg></Link>
+              <Link ><IonImg className="image3" src={img3} alt=" "></IonImg></Link>
+            </div>
+                </IonCard>
+               
+            </IonContent>
+        </IonPage>
+    );
+
+  }
+  export default Login;
+
+
+
+
+import {
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonContent,
+  IonImg,
+  IonInput,
+  IonLabel,
+  IonPage,
+  IonSegment,
+  IonSegmentButton,
+  IonToolbar,
+  useIonRouter
+} from "@ionic/react";
+
+import "./Signuppage.css";
+import img1 from "../assets/images/Google.png";
+import img2 from "../assets/images/Facebook.png";
+import img3 from "../assets/images/Twitter.png";
+import img4 from "../assets/images/eatmore logo.png";
+import { useState,useEffect } from "react";
+import { firebaseApp } from "./firebase";
+import { Link } from "react-router-dom";
+  const Signup =() =>{
+    const [user, setUser] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmpassword, setconfirmPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [PassswordError, setPasswordError] = useState('');
+    
+    // const [hasAccount, setHasAccount] = useState(false);
+    let router = useIonRouter();
+  
+    const clearInputs = () => {
+      setEmail('');
+      setPassword('');
+      setconfirmPassword('');
+    }
+    const clearErrors = () => {
+      setEmailError('');
+      setPasswordError('');
+    }
+    const authlistener = () => {
+      firebaseApp.auth().onAuthStateChanged(user => {
+        if (user) {
+          clearInputs();
+          setUser(user);
+        }
+        else {
+          setUser("");
+        }
+      });
+    };
+    useEffect(() => {
+      authlistener();
+    }, []);
+    const handleSignup = () => {
+      clearErrors();
+      firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(()=>{router.push("/dashboard")})
+        .catch((err) => {
+          switch (err.code) {
+            case "auth/email-already-in-use":
+            case "auth/invalid-email":
+  
+              setEmailError(err.message);
+              break;
+            case "auth/weak-password":
+              setPasswordError(err.message);
+              break;
+          }
+        });
+    }
+    return(
+        <IonPage>
+            <IonContent>
+            <IonImg className="eclipse" src={img4} alt=" "></IonImg>
+           <IonCard className="container">
+           
+            
+       <IonCardHeader><IonLabel className="Signuptxt">Signup</IonLabel></IonCardHeader>
+            <br></br>
+            <IonInput class="input"  placeholder="enter email"  value={email} onIonChange={(e) => setEmail(e.detail.value)}></IonInput><br></br>
+            <IonLabel className="errorMsg">{emailError}</IonLabel>
+            <IonInput class="input" type="password" placeholder="Password" value={password} onIonChange={(e) => setPassword(e.detail.value)} ></IonInput><br></br>
+            <IonLabel className="errorMsg">{PassswordError}</IonLabel>
+            <IonInput class="input" type="password"  placeholder="confirm password"></IonInput><br></br>
+            
+            <IonButton onClick={handleSignup} className="signupbtn" shape="round" color='danger' >Signup</IonButton>
+            <br></br>
+
+      
+                <IonLabel>Don't hava any account? <Link to='/loginpage'>Login</Link></IonLabel>
+                 <div className="image">
+             <Link > <IonImg className="image1" src={img1} alt=" "></IonImg> </Link>
+             <Link > <IonImg className="image2" src={img2} alt=" "></IonImg></Link>
+             <Link > <IonImg className="image3" src={img3} alt=" "></IonImg></Link>
+            </div> 
+                </IonCard>
+              
+            </IonContent>
+        </IonPage>
+    );
+
+  }
+  export default Signup;
+
+
+
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import { getAuth, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider } from 'firebase/auth';
+import {useState,useEffect} from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyADZ2jRCwQ7kbTggX6UERCn9ihhULsZxgk",
+    authDomain: "react-register-50890.firebaseapp.com",
+    projectId: "react-register-50890",
+    storageBucket: "react-register-50890.appspot.com",
+    messagingSenderId: "608875526497",
+    appId: "1:608875526497:web:ebc6bbfb8e59e0ae48ad20"
+};
+// Use this to initialize the firebase App
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+
+
+export const ath = getAuth(firebaseApp);
+
+const provider = new GoogleAuthProvider()
+export const signInWithGoogle = () => {
+    signInWithPopup(auth, provider).then((result) => {
+        console.log(result);
+    })
+        .catch((error) => {
+            console.log(error);
+        })
+};
+const fprovider = new FacebookAuthProvider()
+export const sigInWithFacebook = () => {
+    signInWithPopup(auth, fprovider).then((result) => {
+        console.log(result);
+    })
+        .catch((error) => {
+            console.log(error);
+        })
+};
+export function useAuth(){
+    const [currentUser,setcurrentUser] = useState();
+    useEffect(() => {
+      const unsub = onAuthStateChanged(auth,(user) => setcurrentUser(user))
+      return unsub
+    },[]);
+    return currentUser;
+   }
+
+export { firebaseApp };
+
+
+
+
+
+import { Redirect, Route } from 'react-router-dom';
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonReactRouter } from '@ionic/react-router';
+import Home from './pages/Home';
+import Login from './pages/Loginpage'
+
+/* Core CSS required for Ionic components to work properly */
+import '@ionic/react/css/core.css';
+
+/* Basic CSS for apps built with Ionic */
+import '@ionic/react/css/normalize.css';
+import '@ionic/react/css/structure.css';
+import '@ionic/react/css/typography.css';
+
+/* Optional CSS utils that can be commented out */
+import '@ionic/react/css/padding.css';
+import '@ionic/react/css/float-elements.css';
+import '@ionic/react/css/text-alignment.css';
+import '@ionic/react/css/text-transformation.css';
+import '@ionic/react/css/flex-utils.css';
+import '@ionic/react/css/display.css';
+
+/* Theme variables */
+import './theme/variables.css';
+import Signup from './pages/Signuppage';
+import Dashboard from './pages/Dashboard';
+
+setupIonicReact();
+
+const App = () => (
+  <IonApp>
+    <IonReactRouter>
+      <IonRouterOutlet>
+        <Route exact path="/home">
+          <Home />
+        </Route>
+        <Route exact path="/loginpage">
+        <Login />
+        </Route>
+         <Route exact path="/signuppage">
+          <Signup />
+        </Route>
+        <Route exact path="/dashboard">
+          <Dashboard />
+          </Route> 
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  </IonApp>
+);
+
+export default App;

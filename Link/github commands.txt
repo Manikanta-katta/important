@@ -1,0 +1,46 @@
+      Github commands
+
+
+
+---> for specific branch cloning   { git clone -b <branchname> --single-branch <gitrepository path>}
+
+
+----> for remote-repo url      {git clone --branch <branchname> <remote-repo-url>}
+
+ 
+-----> for entire repo cloning  {git clone <repopath> }
+
+-----> deleting for particula branch {git branch -d <branchname>} {while deleting a branch v5 we are switched to another branch and then delete that v5}
+
+
+firebase commands:
+
+
+
+
+"firebase login --no-localhost" if "firebase login"
+firebase hosting:channel:deploy "Your_app_name"
+
+
+<---- resources folder in for splash screen ------->
+
+npx cordova-res android --skip-config --copy
+
+
+
+
+Splash screeen plugin
+ 
+plugins: {
+
+    SplashScreen: {
+
+        launchShowDuration : 2000
+
+    }
+
+  }
+
+
+ Facebook App Id :  561789055652420
+ Client Token    :  87132e36a2f2c94379f06440bdbc446d
