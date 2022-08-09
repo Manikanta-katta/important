@@ -1,0 +1,219 @@
+
+
+<------------React Tasks -------------->
+Task-5
+
+1.	Integrate sentry into your applications 
+a.	This is for error logging 
+b.	https://sentry.io/welcome/
+
+2.	Create user profile page 
+a.	If user is logging in with google , display google image 
+
+3.	Few team mates are getting the data from the data.json file ( within the project ) 
+a.	Instead get it from firebase DB 
+
+4.	If the application is containing multiple products 
+a.	Make sure you have favourites 
+i.	Cart data should be maintained in DB 
+b.	Make sure you have feature to add to cart 
+i.	Cart data should be maintained in DB 
+c.	Make sure the behaviour is seamless 
+
+5.	If the application is social media app
+a.	How to integrate likes for a post 
+i.	We should be able to give likes 
+ii.	We should also see how many people liked my post 
+b.	How to integrate sharing a post using other mobile apps 
+c.	 See if we can post a video as a post 
+
+6.	If your application has products 
+a.	We should create product details page 
+
+
+
+
+
+Task-4
+
+1.	Need a splash screen for our mobile application 
+a.	Check different types can be your splash screens 
+b.	It can be a gif , or an image 
+c.	Try if we can set up one for our application 
+2.	Make sure you are submitting the production build not the dev build 
+a.	Understand dev build 
+b.	Understand production build 
+c.	Submit only production builds 
+3.	Spinner 
+a.	Whenever a we have a API call going we should display the spinner on the screen
+b.	If the API completes or throws error we should stop the spinner on the screen
+c.	We can also use skeletons ( explore this option ) 
+
+4.	Google / FB login 
+a.	Make sure google login and FB login are working 
+b.	We might have to use plug in here // it is not straight forward hence do it without messing with your application 
+
+5.	Clear the fields  in login page , Sign up pages 
+a.	Clear fields if the login fails /Succeeds 
+i.	Check other mobile app practices 
+b.	Clear fields 
+i.	When you switch between Login page and Sign up page 
+
+6.	How to debug the application / How to live reload 
+a.	We should identify how to debug the application 
+b.	We should also find out how to live reload the application  ( whenever you make changes it immediately updates in the mobile app ) 
+
+7.	Need to implement infinite scrolling for your products 
+a.	We need to implement infinite scrolling for your contacts / products / Books 
+b.	We should be lazy loading the images 
+
+
+
+
+Task-3
+
+1.	Tasks 
+a.	Create an account in JIRA 
+i.	Understand 
+1.	Project (Create example ) 
+2.	User story ( Create an example ) 
+3.	Epics  ( Create an example )
+4.	Bugs ( Create an example )
+5.	Tasks ( Create an example )
+6.	Sprint Backlog ( Create an example )
+
+b.	Make Http calls to below API
+i.	https://crudcrud.com/ 
+1.	Create Get example  
+2.	Create post example  
+3.	Create Put example  
+4.	Create Delete example  
+5.	You can convert your CRUD  
+
+c.	How to build a react application
+a.	What is the build command  
+b.	What is development build  
+c.	What is production build  
+d.	What is DIST folder  
+e.	What is the importance of DIST folder  
+
+d.	Create and user figma 
+i.	Create a web application design using figma 
+a.	Create an idea / create a design for mobile application  
+b.	Do it using https://www.figma.com/  
+c.	Make it more user convenient  
+d.	Create a simple Ionic application using react 
+e.	Once the design is evaluated  
+i.	Integrate the design into ionic frame work using ionic components  
+ii.	https://ionicframework.com/docs/components using ionic components try to generate the design  
+f.	Using ionic generate  
+i.	Components  
+ii.	Navigation  
+iii.	Make sure alignment is proper  
+
+
+
+
+Task-2
+
+1.	Deploy the your registration form 
+a.	Deploy your registration built with JavaScript  from into https://www.heroku.com/
+
+2.	Understand below 
+a.	Angular
+b.	React
+c.	Vue
+d.	MEAN stack 
+i.	Understand the combination 
+e.	MERN stack
+i.	Understand the combination 
+
+3.	Create sample React JS application 
+
+a.	Create features like below using Firebase
+i.	Registration 
+ii.	Email verification 
+iii.	Login 
+iv.	Logout 
+b.	Crate features like in your application build them using Firebase
+i.	Google login 
+ii.	Email password login 
+iii.	FB login 
+iv.	Apple login 
+
+
+
+
+Task-1
+
+1.	Git
+    a.	Understand what is GIT
+    b.	Why we need GIT
+    c.	How does the GIT work
+    d.	What are alternatives to GIT
+    e.	How many companies are available for us to create repositories 
+    f.	What is a repository 
+    g.	What is  a branch
+i.	How to create a branch
+ii.	How to create a pull request 
+iii.	How to  merge a pull request 
+iv.	How to check merge conflicts 
+
+h.	How do we authenticate the user in GIT 
+i.	Setting up the token in   your computer keychain 
+ii.	Check different possible ways to authenticate the user in GIT 
+i.	How do we add multiple developers to access my repository 
+j.	How to provide read and write permissions ( what does it mean by )
+k.	Practice different GIT commands 
+i.	Git clone 
+ii.	Git pull
+iii.	Git push
+iv.	Git merge 
+v.	Git rebase 
+l.	How to resolve merge conflicts 
+m.	Create a accounts in companies that give provision to create free repositories 
+i.	Add your friends as contributors 
+
+n.	Create  very good sample webpage and commit the webpage code changes in to the repositories that you create ( from different providers )
+o.	Deploy application using git 
+ 
+
+2.	Java script 
+a.	Create below  JavaScript programs 
+i.	Create a registration form and it should contain below fields  // Create a branch for this and commit the code changes 
+1.	Textboxes  
+2.	Radio buttons 
+3.	Check boxes
+4.	Text area 
+5.	Dropdown 
+6.	Button to submit the form data 
+7.	Create some basic validation around all the fields 
+a.	Make sure validation is applied to all the fields 
+8.	Once application is running , once the all the fields are filled by the user , if we click on submit we should be able to see the data entered by the user as a Json in the console logs 
+
+ii.	Create Java script program to find a factorial of a number  // Create a branch for this and commit the code changes
+1.	User loops and conditional statements for get the results 
+iii.	Create a JavaScript program explaining about call back functions // Create a branch for this and commit the code changes
+iv.	Create a JavaScript program using moment.js // Create a branch for this and commit the code changes
+1.	In the HTML we should have set of countries 
+2.	Using moment JS 
+a.	We should be able to print current date and time in selected country 
+b.	What is the  time difference between the selected county and UTC time 
+v.	Create a JavaScript program // Create a branch for this and commit the code changes
+1.	Include chart.js library 
+2.	In the application  draw a radar graph 
+
+vi.	Create a JavaScript program // Create a branch for this and commit the code changes
+1.	Call the below Http service 
+a.	We should handle success 
+b.	We should also handle failure 
+c.	Display date retuned by the API in a table format 
+vii.	Create a JavaScript program //  Create a branch for this and commit the code changes
+1.	Using this program I should be able to download a file from API 
+
+
+
+
+
+
+
