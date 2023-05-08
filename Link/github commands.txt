@@ -40,6 +40,16 @@ plugins: {
     }
 
   }
+  
+  
+  // deploying the node js apis into vercel
+  
+  * npm install g vercel
+  * npx vercel login or vercel login
+    // for deploying 
+  
+  * npx vercel or  vercel 
+  
 
 
  Facebook App Id :  561789055652420
