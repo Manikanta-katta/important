@@ -51,6 +51,6 @@ plugins: {
   * npx vercel or  vercel 
   
 
-
+AWS account password : Manikanta@2000
  Facebook App Id :  561789055652420
  Client Token    :  87132e36a2f2c94379f06440bdbc446d
